@@ -44,19 +44,19 @@ Gaussian Mixture Models are a classic clustering technique, that can easily be g
 Say we have the following Gaussian Mixture Model:
 
 \begin{equation}
-	p(\x_1, \x_2) = 
+	p(\x_a, \x_b) = 
     \sum_c \Pr(c)
     \mathcal{N}\left(
 		\left(
 		\begin{array}{c}
-			\x_1 \\
-			\x_2 \\
+			\x_a \\
+			\x_b \\
 		\end{array}
 		\right);
 		\left(
 		\begin{array}{c}
-			\bmu_1^{(c)} \\
-			\bmu_2^{(c)} \\
+			\bmu_a^{(c)} \\
+			\bmu_b^{(c)} \\
 		\end{array}
 		\right),
 		\left[
@@ -67,34 +67,34 @@ Say we have the following Gaussian Mixture Model:
 		\right]
 	\right)
 \end{equation}
-where $\x_1 \in \mathbb{R}^{D_1}$, $\x_2 \in \mathbb{R}^{D_2}$, $c$ indexes each Gaussian in the mixture and $\Pr(c)$ is the mixture proportion associated with the $c$th Gaussian. Our aim is to derive an expression for $p(\x_1 | \x_2)$. \\
+where $\x_a \in \mathbb{R}^{D_a}$, $\x_b \in \mathbb{R}^{D_b}$, $c$ indexes each Gaussian in the mixture and $\Pr(c)$ is the mixture proportion associated with the $c$th Gaussian. Our aim is to derive an expression for $p(\x_a | \x_b)$. \\
 
 We begin by noting that
 
 \begin{equation}
-	p(\x_1| \x_2) = \sum_c \Pr(c| \x_2) \mathcal{N}\left(
-		\x_1; \bmu_{1|2}^{(c)}, \bSigma_{1|2}^{(c)}
+	p(\x_a| \x_b) = \sum_c \Pr(c| \x_b) \mathcal{N}\left(
+		\x_a; \bmu_{1|2}^{(c)}, \bSigma_{1|2}^{(c)}
 	\right)
     \label{eq:GMM_cond}
 \end{equation}
 where, using standard properties of Gaussian distributions, we know that:
 
 \begin{equation}
-	\bmu_{1|2}^{(c)} = \bmu_{1}^{(c)} + \bSigma_{1,1}^{(c)} \left(\bSigma^{(c)}_{2,2}\right)^{-1} (\x_2 - \bmu_2^{(c)})
+	\bmu_{1|2}^{(c)} = \bmu_{1}^{(c)} + \bSigma_{1,1}^{(c)} \left(\bSigma^{(c)}_{2,2}\right)^{-1} (\x_b - \bmu_b^{(c)})
 \end{equation}
 and
 
 \begin{equation}
 	\bSigma_{1|2}^{(c)} = \bSigma_{1,1}^{(c)} - \bSigma_{1,2}^{(c)} \left(\bSigma^{(c)}_{2,2}\right)^{-1} \bSigma^{(c)}_{2,1}
 \end{equation}
-Note that the mixture proportions in equation (\ref{eq:GMM_cond}) are now conditional on $\x_2$ and that, in general, we cannot say that $\Pr(c)$ will be equal to $\Pr(c | \x_2)$. To evaluate $\Pr(c | \x_2)$ we use Bayes' theorem to obtain:
+Note that the mixture proportions in equation (\ref{eq:GMM_cond}) are now conditional on $\x_b$ and that, in general, we cannot say that $\Pr(c)$ will be equal to $\Pr(c | \x_b)$. To evaluate $\Pr(c | \x_b)$ we use Bayes' theorem to obtain:
 
 \begin{equation}
-    \Pr(c | \x_2) = \frac{p(\x_2 | c) \Pr(c)}{\sum_{c'} p(\x_2 | c') \Pr(c')}
+    \Pr(c | \x_b) = \frac{p(\x_b | c) \Pr(c)}{\sum_{c'} p(\x_b | c') \Pr(c')}
 \end{equation}
 
 \begin{equation}
-    = \frac{ \mathcal{N}(\x_2 | \bmu_2^{(c)}, \bSigma_{2,2}^{(c)}) \Pr(c)}{\sum_{c'} \mathcal{N}(\x_2 | \bmu_2^{(c')}, \bSigma_{2,2}^{(c')}) \Pr(c')}
+    = \frac{ \mathcal{N}(\x_b | \bmu_b^{(c)}, \bSigma_{2,2}^{(c)}) \Pr(c)}{\sum_{c'} \mathcal{N}(\x_b | \bmu_b^{(c')}, \bSigma_{2,2}^{(c')}) \Pr(c')}
 \end{equation}
 Example code is implemented in Python 3. 
 

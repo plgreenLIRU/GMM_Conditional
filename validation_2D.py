@@ -43,13 +43,13 @@ gmm_cond = GMM_Conditional(means=gmm.means_,
                            covariances=gmm.covariances_,
                            weights=gmm.weights_,
                            n_components=gmm.n_components,
-                           D1=1, D2=1)
+                           i_cond=np.array([False, True]))
 
 # Plot conditional distribution over range of x1 values
 x1_range = np.linspace(-7, 7, 1000)
 pdf = np.zeros(1000)
 for i in range(1000):
-    pdf[i] = gmm_cond.pdf_x1_cond_x2(x1_range[i], x2)
+    pdf[i] = gmm_cond.pdf_xa_cond_xb(x1_range[i], x2)
 ax[1].plot(x1_range, pdf, 'k')
 ax[1].set_xlim([-8, 8])
 ax[1].set_xlabel('x1')
