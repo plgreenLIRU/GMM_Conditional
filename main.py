@@ -16,14 +16,10 @@ P.L.Green
 """
 
 # Generate samples from a Gaussian Mixture Model
-N = 10000
 n_components=2
-X = np.zeros([N, 2])
-for i in range(N):
-    if i < N/2:
-        X[i, :] = mvn(mean=[3, 3], cov=np.eye(2))
-    else:
-        X[i, :] = mvn(mean=[-4, 0], cov=np.array([[1, 0.9],[0.9, 1]]))
+X1 = mvn(mean=[3, 3], cov=np.eye(2), size=10000)
+X2 = mvn(mean=[-4, 0], cov=np.array([[1, 0.8],[0.8, 1]]), size=10000)
+X = np.vstack([X1, X2])
 
 # Fit a Gaussian mixture model
 gmm = GMM_sk(n_components=n_components)
